@@ -1,0 +1,88 @@
+/* MAIN NAVBAR */
+.floating-navbar {
+  background: rgba(255, 255, 255, 0.08); /* transparent */
+  backdrop-filter: blur(12px);
+  padding: 14px 40px;
+  margin: 15px auto;
+  width: 95%;
+  border-radius: 50px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* BRAND */
+.brand-q {
+  color: #df1e2ed0; /* red for Q */
+  font-weight: 700;
+  font-style: italic;
+}
+
+.brand-rest {
+  color: #ffffffbc; /* white for the rest */
+  font-weight: 500;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+
+/* CENTER LINKS */
+.nav-links {
+  gap: 25px;
+}
+
+.nav-links .nav-link {
+  color: #752c2ca9 !important;
+  font-weight: 500;
+  position: relative;
+  transition: 0.3s;
+}
+
+/* LINK HOVER ANIMATION */
+.nav-links .nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background: #ff4757;
+  left: 50%;
+  bottom: -5px;
+  transition: 0.3s;
+  transform: translateX(-50%);
+}
+
+.nav-links .nav-link:hover::after {
+  width: 100%;
+}
+
+/* LOGIN BUTTON */
+.login-btn-wrapper {
+  display: flex;
+  align-items: center;
+}
+.login-btn {
+  background: #1f1a1b94 !important;
+  padding: 8px 22px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: #d2cbcc !important;
+}
+
+.login-btn:focus, 
+.login-btn:active {
+  box-shadow: none !important;
+  outline: none;   
+}
+
+
+/* MOBILE */
+@media (max-width: 991px) {
+  .nav-links {
+    margin-top: 15px;
+  }
+
+  .login-btn-wrapper {
+    margin-top: 15px;
+    justify-content: center;
+  }
+}

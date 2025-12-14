@@ -1,0 +1,66 @@
+.hero-wrapper {
+  height: 100vh; /* full viewport height */
+  width: 100vw;  /* full viewport width */
+  background: url("../assets/wakeup.jpg") center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;  /* vertically bottom */
+  justify-content: flex-start; /* horizontally left */
+  padding: 40px; /* space from edges */
+  color: white;
+  position: relative;
+}
+
+/* Optional: add overlay for better text readability */
+.hero-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.35); /* dark overlay */
+  z-index: 0;
+}
+
+/* Hero content */
+.hero-content {
+  position: relative; /* above overlay */
+  z-index: 1;
+  max-width: 600px;
+}
+
+/* Example text */
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 25px;
+}
+
+/* Hero button */
+.hero-content .btn {
+  background-color: #ff4757;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-weight: 500;
+  color: white;
+  transition: 0.3s;
+}
+
+.hero-content .btn:hover {
+  background-color: #ff6b81;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+}

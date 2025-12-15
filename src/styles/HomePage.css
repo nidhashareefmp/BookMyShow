@@ -1,72 +1,55 @@
+/* ===== HERO BANNER ===== */
 body{
   background-color: black !important;
 }
-.hero-wrapper {
-  height: 100vh; /* full viewport height */
-  width: 100vw;  /* full viewport width */
-  background: url("../assets/wakeup.jpg") center/cover no-repeat;
-  display: flex;
-  align-items: flex-end;  /* vertically bottom */
-  justify-content: flex-start; /* horizontally left */
-  padding: 40px; /* space from edges */
-  color: white;
-  position: relative;
+
+/* ===== BANNER CARD LAYOUT ===== */
+.banner-card {
+  background: #0f0f0f;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
-/* Optional: add overlay for better text readability */
-.hero-wrapper::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
+.banner-image {
   width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.35); /* dark overlay */
-  z-index: 0;
+  height: 260px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-top: 60px;
 }
 
-/* Hero content */
-.hero-content {
-  position: relative; /* above overlay */
-  z-index: 1;
-  max-width: 600px;
+.banner-content {
+  color: #fff;
+  padding-left: 20px;
 }
 
-/* Example text */
-.hero-content h1 {
-  font-size: 3rem;
-  margin-bottom: 20px;
+.banner-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 12px;
 }
 
-.hero-content p {
-  font-size: 1.2rem;
-  margin-bottom: 25px;
+.banner-description {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 18px;
+  opacity: 0.9;
 }
 
-/* Hero button */
-.hero-content .btn {
-  background-color: #ff4757;
-  border: none;
-  padding: 10px 25px;
-  border-radius: 25px;
-  font-weight: 500;
-  color: white;
-  transition: 0.3s;
-}
-
-.hero-content .btn:hover {
-  background-color: #ff6b81;
-}
-
-/* Responsive adjustments */
-@media (max-width: 992px) {
-  .hero-content h1 {
-    font-size: 2rem;
+/* Mobile */
+@media (max-width: 768px) {
+  .banner-content {
+    padding-left: 0;
+    margin-top: 20px;
+    text-align: center;
   }
 
-  .hero-content p {
-    font-size: 1rem;
+  .banner-image {
+    height: 220px;
   }
 }
+
 
 /* LATEST RELEASE – BOOKING STYLE */
 .latest-release-section {

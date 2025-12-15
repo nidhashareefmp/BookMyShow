@@ -1,29 +1,23 @@
-import { AvengersImg, SpidermanImg, JawanImg, LeoImg } from "../assets/images";
+import { Container, Row, Col, Card } from "react-bootstrap";
+import { movies } from "../data/movies";
+import "../styles/Homepage.css";
 
-export const Movies = [
-  {
-    id: 1,
-    title: "Avengers: Endgame",
-    image: AvengersImg,
-    theatres: ["PVR", "INOX", "IMAX"],
-  },
-  {
-    id: 2,
-    title: "Spider-Man",
-    image: SpidermanImg,
-    theatres: ["PVR", "AGS"],
-  },
-  {
-    id: 3,
-    title: "Jawan",
-    image: JawanImg,
-    theatres: ["INOX", "SPI"],
-  },
-  {
-    id: 4,
-    title: "Leo",
-    image: LeoImg,
-    theatres: ["PVR", "IMAX"],
-  },
-  // ...add more movies
-];
+export default function Movies() {
+  return (
+    <Container>
+      <h2>All Movies</h2>
+      <Row>
+        {movies.map((movie) => (
+          <Col md={3} key={movie.id}>
+            <Card>
+              <Card.Img src={movie.image} />
+              <Card.Body>
+                <Card.Title>{movie.title}</Card.Title>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </Container>
+  );
+}

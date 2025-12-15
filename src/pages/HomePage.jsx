@@ -9,36 +9,36 @@
 // export default function HomePage() {
 //     return (
 //         <>
-//             {/* HERO SECTION */}
-//             <div className="hero-wrapper">
-//                 <Navbar />
+            // {/* HERO SECTION */}
+            // <div className="hero-wrapper">
+            //     <Navbar />
 
-//                 <Container className="hero-content">
-//                     <div className="hero-text">
-//                         <p className="studio">Marvel Studios</p>
+            //     <Container className="hero-content">
+            //         <div className="hero-text">
+            //             <p className="studio">Marvel Studios</p>
 
-//                         <h1 className="hero-title">
-//                             Guardians <br /> of the Galaxy
-//                         </h1>
+            //             <h1 className="hero-title">
+            //                 Guardians <br /> of the Galaxy
+            //             </h1>
 
-//                         <div className="movie-info">
-//                             <span>Action | Adventure | Sci-Fi</span>
-//                             <span>2018</span>
-//                             <span>2h 8m</span>
-//                         </div>
+            //             <div className="movie-info">
+            //                 <span>Action | Adventure | Sci-Fi</span>
+            //                 <span>2018</span>
+            //                 <span>2h 8m</span>
+            //             </div>
 
-//                         <p className="description">
-//                             In a post-apocalyptic world where cities ride on wheels and consume
-//                             each other to survive, two people meet in London and try to stop a
-//                             conspiracy.
-//                         </p>
+            //             <p className="description">
+            //                 In a post-apocalyptic world where cities ride on wheels and consume
+            //                 each other to survive, two people meet in London and try to stop a
+            //                 conspiracy.
+            //             </p>
 
-//                         <Button className="explore-btn" as={Link} to="/Movies">
-//                             Explore Movies →
-//                         </Button>
-//                     </div>
-//                 </Container>
-//             </div>
+            //             <Button className="explore-btn" as={Link} to="/Movies">
+            //                 Explore Movies →
+            //             </Button>
+            //         </div>
+            //     </Container>
+            // </div>
 //             {/* LATEST RELEASE – MOVIE BOOKING */}
 //             <Container className="latest-release-section">
 //                 <h2 className="section-title text-start">Latest Release</h2>
@@ -102,14 +102,14 @@
 
 
 
-//                             </Card.Body>
-//                         </Card>
-//                     </Col>
+// //                             </Card.Body>
+// //                         </Card>
+// //                     </Col>
 
-
+{/* 
 //                     <Col md={3} sm={6}>
 //                         <Card className="booking-card">
-//                             <Card.Img
+//                             <Card.Img */}
 //                                 variant="top"
 //                                 src={JawanImg}
 //                                 alt="Jawan"
@@ -182,37 +182,81 @@
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { movies } from "./Movies";
+import { movies } from "../data/movies";
+import "../styles/HomePage.css";
+import { StrangerthingsImg } from "../assets/images";
 
 export default function HomePage() {
-  // only show first 4 or latest 20
   const latestMovies = movies.slice(0, 4);
 
   return (
-    <Container className="latest-release-section">
-      <h2 className="section-title text-start">Latest Release</h2>
+    <>
+     {/* ===== BANNER CARD ===== */}
+<Container className="banner-card my-4">
+  <Row className="align-items-center">
+    {/* LEFT IMAGE */}
+    <Col md={5}>
+      <img
+        src={StrangerthingsImg}
+        alt="Guardians of the Galaxy"
+        className="banner-image"
+      />
+    </Col>
 
-      <Row className="g-4">
-        {latestMovies.map((movie) => (
-          <Col md={3} sm={6} key={movie.id}>
-            <Card className="booking-card">
-              <Card.Img variant="top" src={movie.image} alt={movie.title} />
-              <Card.Body>
-                <Card.Title>{movie.title}</Card.Title>
-                <Button
-                  variant="danger"
-                  className="w-100 mt-3"
-                  as={Link}
-                  to="/seats"
-                  state={{ movie }}
-                >
-                  Book Now
-                </Button>
-              </Card.Body>
-            </Card>
-          </Col>
-        ))}
-      </Row>
-    </Container>
+    {/* RIGHT CONTENT */}
+    <Col md={7}>
+      <div className="banner-content">
+        <p className="studio">Marvel Studios</p>
+
+        <h2 className="banner-title">
+          Guardians of the Galaxy
+        </h2>
+
+        <p className="banner-description">
+          A group of intergalactic criminals must pull together to stop a
+          fanatical warrior with plans to purge the universe.
+        </p>
+
+        <Button
+          variant="danger"
+          as={Link}
+          to="/movies"
+        >
+          Explore Movies →
+        </Button>
+      </div>
+    </Col>
+  </Row>
+</Container>
+
+
+      {/* ===== LATEST RELEASE ===== */}
+      <Container className="latest-release-section">
+        <h2 className="section-title text-start">Latest Release</h2>
+
+        <Row className="g-4">
+          {latestMovies.map((movie) => (
+            <Col md={3} sm={6} key={movie.id}>
+              <Card className="booking-card">
+                <Card.Img variant="top" src={movie.image} />
+                <Card.Body>
+                  <Card.Title>{movie.title}</Card.Title>
+
+                  <Button
+                    variant="danger"
+                    className="w-100 mt-3"
+                    as={Link}
+                    to="/seats"
+                    state={{ movie }}
+                  >
+                    Book Now
+                  </Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </>
   );
 }

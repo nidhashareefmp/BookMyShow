@@ -68,6 +68,7 @@
 import { useState } from "react";
 import { Container, Button, Form } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
+import "../styles/SeatSelection.css";
 
 const THEATRES = {
   PVR: { price: 180, rows: ["A", "B", "C", "D"], seatsPerRow: 8, booked: ["A2","B4"] },

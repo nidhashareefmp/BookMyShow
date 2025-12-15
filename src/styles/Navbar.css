@@ -1,6 +1,8 @@
-/* MAIN NAVBAR */
+/* =========================
+   MAIN NAVBAR
+========================= */
 .floating-navbar {
-  background: rgba(255, 255, 255, 0.08); /* transparent */
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   padding: 14px 40px;
   margin: 15px auto;
@@ -9,27 +11,30 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* BRAND */
+/* =========================
+   BRAND
+========================= */
 .brand-q {
-  color: #df1e2ed0; /* red for Q */
+  color: #df1e2ed0;
   font-weight: 700;
   font-style: italic;
 }
 
 .brand-rest {
-  color: #ffffffbc; /* white for the rest */
+  color: #ffffffbc;
   font-weight: 500;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
 }
 
-
-/* CENTER LINKS */
+/* =========================
+   CENTER LINKS
+========================= */
 .nav-links {
   gap: 25px;
 }
 
 .nav-links .nav-link {
-  color: #752c2ca9 !important;
+  color: #ffffffbc !important;
   font-weight: 500;
   position: relative;
   transition: 0.3s;
@@ -52,37 +57,187 @@
   width: 100%;
 }
 
-/* LOGIN BUTTON */
-.login-btn-wrapper {
+/* =========================
+   RIGHT SIDE (SEARCH + ICONS)
+========================= */
+.nav-right {
   display: flex;
   align-items: center;
+  gap: 14px;
 }
-.login-btn {
-  background: #1f1a1b94 !important;
-  padding: 8px 22px;
-  font-weight: 500;
+
+/* SEARCH */
+.search-box {
+  position: relative;
+}
+
+.search-input {
+  height: 36px;
+  border-radius: 20px;
+  padding-left: 35px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #fff;
+  font-size: 0.9rem;
+}
+
+.search-input::placeholder {
+  color: #ffffff9a;
+}
+
+.search-input:focus {
+  box-shadow: none;
+  outline: none;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ffffffa0;
+  font-size: 14px;
+}
+
+/* =========================
+   FAVOURITES ICON
+========================= */
+.fav-icon {
+  color: #ffffffc9;
+  font-size: 20px;
   transition: 0.3s;
 }
 
-.login-btn:hover {
-  background: #d2cbcc !important;
+.fav-icon:hover {
+  color: #ff4757;
 }
 
-.login-btn:focus, 
-.login-btn:active {
-  box-shadow: none !important;
-  outline: none;   
+/* =========================
+   BUTTONS
+========================= */
+.signin-btn {
+  background: transparent !important;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-weight: 500;
+  border: 1px solid #ffffff70;
+  color: #fff;
+}
+
+.signin-btn:hover {
+  background: rgba(255, 255, 255, 0.15) !important;
 }
 
 
-/* MOBILE */
+
+/* =========================
+   MOBILE VIEW
+========================= */
 @media (max-width: 991px) {
   .nav-links {
     margin-top: 15px;
+    text-align: center;
   }
 
-  .login-btn-wrapper {
+  .nav-right {
+    flex-direction: column;
+    gap: 12px;
     margin-top: 15px;
-    justify-content: center;
   }
+
+  .search-input {
+    width: 100%;
+  }
+}
+
+
+/* ===============================
+   AUTH MODAL (PROFESSIONAL)
+   Scoped – SAFE
+================================ */
+
+.auth-modal {
+  padding: 10px 8px;
+}
+
+/* Modal container */
+.modal-content {
+  background: #0f0f0f;
+  color: #fff;
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Header */
+.modal-header {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+/* Close button */
+.modal-header .btn-close {
+  filter: invert(1);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+
+/* Google */
+.google-btn {
+  background: #ffffff !important;
+  color: #000 !important;
+  border-radius: 12px;
+  font-weight: 500;
+  padding: 12px;
+  font-size: 0.95rem;
+  border: none;
+}
+
+.google-btn:hover {
+  background: #f1f1f1 !important;
+}
+
+/* Phone */
+.phone-btn {
+  background: #e50914 !important;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 500;
+  font-size: 0.95rem;
+  border: none;
+}
+
+.phone-btn:hover {
+  background: #f6121d !important;
+}
+
+/* ===============================
+   CREATE ACCOUNT LINK
+================================ */
+
+.create-link {
+  color: #e50914 !important;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.create-link:hover {
+  text-decoration: underline;
+}
+
+/* ===============================
+   TEXT
+================================ */
+
+.auth-modal span {
+  color: #cccccc;
+  font-size: 0.9rem;
 }

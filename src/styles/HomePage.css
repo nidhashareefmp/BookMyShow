@@ -1,3 +1,6 @@
+body{
+  background-color: black !important;
+}
 .hero-wrapper {
   height: 100vh; /* full viewport height */
   width: 100vw;  /* full viewport width */
@@ -64,3 +67,38 @@
     font-size: 1rem;
   }
 }
+
+/* LATEST RELEASE – BOOKING STYLE */
+.latest-release-section {
+  padding: 60px 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.699);
+  
+}
+
+.booking-card {
+  border: none;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  transition: transform 0.3s ease;
+}
+
+.booking-card:hover {
+  transform: translateY(-8px);
+}
+
+.booking-card img {
+  height: 380px;
+  object-fit: cover;
+}
+
+.movie-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+

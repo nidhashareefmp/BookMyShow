@@ -1,10 +1,29 @@
-import React from "react";
+import { AvengersImg, SpidermanImg, JawanImg, LeoImg } from "../assets/images";
 
-export default function Movies() {
-  return (
-    <div style={{ padding: "100px", textAlign: "center" }}>
-      <h1>Movies Page</h1>
-      <p>This is where your movies will be listed.</p>
-    </div>
-  );
-}
+export const Movies = [
+  {
+    id: 1,
+    title: "Avengers: Endgame",
+    image: AvengersImg,
+    theatres: ["PVR", "INOX", "IMAX"],
+  },
+  {
+    id: 2,
+    title: "Spider-Man",
+    image: SpidermanImg,
+    theatres: ["PVR", "AGS"],
+  },
+  {
+    id: 3,
+    title: "Jawan",
+    image: JawanImg,
+    theatres: ["INOX", "SPI"],
+  },
+  {
+    id: 4,
+    title: "Leo",
+    image: LeoImg,
+    theatres: ["PVR", "IMAX"],
+  },
+  // ...add more movies
+];

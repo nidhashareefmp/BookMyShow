@@ -1,209 +1,232 @@
+import SpidermanImg from "../assets/images/Spiderman.jpg";
+import JawanImg from "../assets/images/Jawan.jpg";
+import LeoImg from "../assets/images/Leo.jpg";
+import VijayImg from "../assets/images/Vijay.jpg";
+import  AvengersImg from "../assets/images/Avengers.jpg";
+
 const moviesData = [
   {
     id: 1,
-    title: "Leo",
-    image: "/images/leo.jpg",
-    theater: "PVR Cinemas",
-    description: "Action thriller starring Vijay"
+    title: "Avengers",
+    image: AvengersImg,
+    artistImage: VijayImg,
+    description: "Action thriller starring Vijay",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
   },
   {
     id: 2,
-    title: "Jailer",
-    image: "/images/jailer.jpg",
-    theater: "INOX",
-    description: "Rajinikanth action entertainer"
+    title: "Spider-Man",
+    image: SpidermanImg,
+    artistImage: "/images/tom-holland.jpg",
+    description: "Superhero action adventure",
+    theatres: ["PVR", "AGS"],
   },
   {
     id: 3,
-    title: "Salaar",
-    image: "/images/salaar.jpg",
-    theater: "AGS Cinemas",
-    description: "High-octane gangster drama"
+    title: "Jawan",
+    image: JawanImg,
+    artistImage: "/images/shah-rukh.jpg",
+    description: "Mass action entertainer",
+    theatres: ["INOX", "SPI"],
   },
   {
     id: 4,
-    title: "Kalki 2898 AD",
-    image: "/images/kalki.jpg",
-    theater: "PVR IMAX",
-    description: "Sci-fi epic starring Prabhas"
+    title: "Leo (IMAX)",
+    image: LeoImg,
+    artistImage: VijayImg,
+    description: "IMAX experience of Leo",
+    theatres: ["PVR", "IMAX"],
   },
+  
   {
     id: 5,
     title: "Devara",
     image: "/images/devara.jpg",
-    theater: "INOX",
-    description: "Mass action drama"
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
+    description: "Mass action drama",
+    isLatest: true
   },
   {
     id: 6,
     title: "Pushpa 2",
     image: "/images/pushpa2.jpg",
-    theater: "PVR Cinemas",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Sequel of Pushpa"
   },
   {
     id: 7,
     title: "Game Changer",
     image: "/images/gamechanger.jpg",
-    theater: "AGS Cinemas",
-    description: "Political action drama"
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
+    description: "Political action drama",
+    isLatest: true
   },
   {
     id: 8,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   },
    {
     id: 9,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 10,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
+    description: "Vigilante drama",
+    isLatest: true
   }, {
     id: 11,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
+    description: "Vigilante drama",
+    isLatest: true
   }, {
     id: 12,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 13,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
+    description: "Vigilante drama",
+    isLatest: true
   }, {
     id: 14,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 15,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
+    description: "Vigilante drama",
+    isLatest: true
   }, {
     id: 16,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
+    description: "Vigilante drama",
+    isLatest: true,
   }, {
     id: 17,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
+    description: "Vigilante drama",
+    isLatest: true
   }, {
     id: 18,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX",  "CINEPOLIS", ],
     description: "Vigilante drama"
   }, {
     id: 19,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: ["PVR",  "LUXE"],
+    description: "Vigilante drama",
+    isLatest: true
   }, {
     id: 20,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
+    description: "Vigilante drama",
+    isLatest: true
   }, {
     id: 21,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: [ "INOX", "IMAX", "CINEPOLIS", ],
+    description: "Vigilante drama",
+    isLatest: true
   }, {
     id: 22,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 23,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
-    description: "Vigilante drama"
+    theatres: ["PVR", "INOX",  "LUXE"],
+    description: "Vigilante drama",
+    isLatest: true
   }, {
     id: 24,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 25,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 26,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 27,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 28,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 29,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 30,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 31,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   }, {
     id: 32,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: [ "INOX", "IMAX", "CINEPOLIS"],
     description: "Vigilante drama"
   },{
     id: 33,
     title: "Indian 2",
     image: "/images/indian2.jpg",
-    theater: "PVR",
+    theatres: ["PVR", "CINEPOLIS", "LUXE"],
     description: "Vigilante drama"
   },
 ];

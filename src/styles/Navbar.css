@@ -218,9 +218,7 @@
   background: #f6121d !important;
 }
 
-/* ===============================
-   CREATE ACCOUNT LINK
-================================ */
+   /* CREATE ACCOUNT LINK */
 
 .create-link {
   color: #e50914 !important;
@@ -233,11 +231,54 @@
   text-decoration: underline;
 }
 
-/* ===============================
-   TEXT
-================================ */
+   /* AUTH FORM INPUTS */
 
-.auth-modal span {
-  color: #cccccc;
+.auth-modal .form-control {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.auth-modal .form-control::placeholder {
+  color: #aaaaaa;
+}
+
+.auth-modal .form-control:focus {
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: none;
+  border-color: #e50914;
+  color: #fff;
+}.auth-modal .form-label{
+  color: black !important;
+}
+
+.auth-modal .btn-primary {
+  background: linear-gradient(135deg, #e50914, #ff2e2e);
+  border: none;
+  border-radius: 12px;
+  padding: 12px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+}
+
+.auth-modal .btn-primary:hover {
+  opacity: 0.9;
+}
+
+
+
+.invalid-feedback {
+  color: #ff6b6b;
+  font-size: 0.8rem;
+}
+
+
+.auth-modal .alert-success {
+  background: rgba(40, 167, 69, 0.15);
+  color: #5dff8a;
+  border: 1px solid rgba(40, 167, 69, 0.4);
+  border-radius: 10px;
   font-size: 0.9rem;
 }

@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Container, Button, Form, Row, Col } from "react-bootstrap"; // Added Row, Col
+import { Container, Button, Form, Row, Col } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../styles/SeatSelection.css";
@@ -21,7 +21,8 @@ export default function SeatSelection() {
   const navigate = useNavigate();
 
   const movie = location.state?.movie;
-  const [theatre, setTheatre] = useState(movie?.theatres[0] || "PVR");
+  const availableTheatres = movie?.theatres || [];
+  const [theatre, setTheatre] = useState(availableTheatres[0] || "PVR");
   const [selectedSeats, setSelectedSeats] = useState([]);
 
   if (!movie) return <Container>Movie not found.</Container>;
@@ -48,8 +49,6 @@ export default function SeatSelection() {
 
     navigate("/payment", { state: bookingDetails });
   };
-
-
 
   return (
     <Container className="seat-page py-4">

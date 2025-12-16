@@ -1,0 +1,59 @@
+.payment-container {
+  max-width: 500px;
+  margin: 40px auto;
+}
+
+.payment-card {
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background: #fff;
+}
+
+.payment-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.payment-method {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.payment-method.active {
+  border-color: #dc3545;
+  background: #fff5f5;
+}
+
+.payment-method input {
+  margin-right: 8px;
+}
+
+.payment-input {
+  margin-top: 10px;
+}
+
+.payment-input input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.error-text {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.pay-btn {
+  margin-top: 20px;
+  width: 100%;
+}

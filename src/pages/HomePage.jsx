@@ -3,12 +3,12 @@
 
 import { Container, Button, Card, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import  Movies  from "../data/movies";
+import moviesData from "../data/moviesdata";
 import "../styles/HomePage.css";
 import { StrangerthingsImg } from "../assets/images";
 
 export default function HomePage() {
-  const latestMovies = Movies.slice(0, 4);
+  const latestMovies = moviesData.slice(0, 4);
 
   return (
     <>

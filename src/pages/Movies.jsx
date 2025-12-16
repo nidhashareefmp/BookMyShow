@@ -1,5 +1,5 @@
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { movies } from "../data/movies";
+// import  Movies  from  "../data/movies";
 import "../styles/Homepage.css";
 
 export default function Movies() {
@@ -7,7 +7,7 @@ export default function Movies() {
     <Container>
       <h2>All Movies</h2>
       <Row>
-        {movies.map((movie) => (
+        {Movies.map((movie) => (
           <Col md={3} key={movie.id}>
             <Card>
               <Card.Img src={movie.image} />

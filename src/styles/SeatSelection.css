@@ -84,3 +84,92 @@
     font-family: Arial, Helvetica, sans-serif;
 
 }
+/* Section Headings */
+.section-title {
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Date Cards Container */
+.date-wrapper {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+}
+
+.date-card {
+  min-width: 70px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: white;
+}
+
+.date-card:hover {
+  background: rgba(78, 75, 75, 0.392);
+  transform: translateY(-3px);
+}
+
+.date-card.active {
+  background: #ff4757; /* Matches your brand red */
+  border-color: #ff4757;
+  box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4);
+}
+
+.day-name { font-size: 0.7rem; text-transform: uppercase; opacity: 0.7; }
+.day-number { font-size: 1.4rem; font-weight: 700; margin: 2px 0; }
+.month { font-size: 0.7rem; font-weight: 500; }
+
+.date-card.active .day-name,
+.date-card.active .day-number,
+.date-card.active .month {
+  color: #fff;
+  opacity: 1;
+}
+
+/* Time Slots */
+.time-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.time-slot {
+  padding: 10px 20px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffffbc;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.time-slot:hover {
+  border-color: #f2f8f9; /* Matches your cyan focus color */
+  color: #ff4757;
+}
+
+.time-slot.active {
+  background:#ff4757 ;
+  color: #000 !important;
+  border-color: #020202;
+  font-weight: 600;
+}
+
+/* Hide Scrollbar for cleaner look */
+.date-wrapper::-webkit-scrollbar {
+  display: none;
+}

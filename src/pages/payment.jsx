@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Container, Card, Button } from "react-bootstrap";
+import emailjs from "@emailjs/browser"; // ✅ REQUIRED IMPORT
 import "../styles/Payment.css";
 
 export default function Payment() {
@@ -20,6 +21,7 @@ export default function Payment() {
   });
   const [error, setError] = useState("");
 
+  // ✅ GUARD: no booking data
   if (!state) return <Container>No booking details found</Container>;
 
   // ✅ VALIDATION
@@ -54,39 +56,43 @@ export default function Payment() {
     return true;
   };
 
-
+  // ✅ SIGN IN HANDLER
   const handleSignIn = () => {
     localStorage.setItem(
       "user",
-      JSON.stringify({ name: "Demo User" })
+      JSON.stringify({
+        name: "Demo User",
+        email: "demo@gmail.com",
+      })
     );
     setIsLoggedIn(true);
     setError("");
   };
 
-
-
+  // ✅ PAY HANDLER (ALERT & EMAIL ONLY RUN WHEN SIGNED IN AND VALID)
   const handlePayNow = () => {
+    if (!isLoggedIn) {
+      setError("Please sign in to continue payment");
+      return;
+    }
+
     if (!validatePayment()) return;
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    emailjs.send(
+      "YOUR_SERVICE_ID",
+      "PAYMENT_TEMPLATE_ID",
+      {
+        user_name: user.name,
+        user_email: user.email,
+        message: `Payment of ₹${state.totalAmount} successful for ${state.movieTitle}`,
+      },
+      "YOUR_PUBLIC_KEY"
+    );
+
     alert("Payment Successful 🎉");
   };
-
-
-  const user = JSON.parse(localStorage.getItem("user"));
-
-  emailjs.send(
-    "YOUR_SERVICE_ID",
-    "PAYMENT_TEMPLATE_ID",
-    {
-      user_name: user.name,
-      user_email: user.email,
-      message: `Payment of ₹${state.totalAmount} successful for ${state.movieTitle}`,
-    },
-    "YOUR_PUBLIC_KEY"
-  );
-
-  alert("Payment Successful 🎉");
-
 
   return (
     <Container className="payment-container">
@@ -156,6 +162,7 @@ export default function Payment() {
 
         {error && <p className="error-text">{error}</p>}
 
+        {/* ✅ BUTTON LOGIC */}
         {!isLoggedIn ? (
           <Button
             variant="primary"
@@ -179,7 +186,6 @@ export default function Payment() {
             Please sign in to complete your booking
           </p>
         )}
-
       </Card>
     </Container>
   );

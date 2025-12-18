@@ -1,28 +1,28 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import moviesData from "../data/moviesdata";
 import "../styles/Homepage.css";
 
 export default function Movies() {
+  const navigate = useNavigate();
+
+  // FIX: handleBooking must be its own separate function here
+  const handleBooking = (movie) => {
+    navigate("/seats", { state: { movie: movie } });
+  };
 
   const addToFavorites = (movie) => {
     const existingFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
     const isAlreadyFavorited = existingFavorites.some((fav) => fav.id === movie.id);
 
     if (!isAlreadyFavorited) {
       const updatedFavorites = [...existingFavorites, movie];
-      // 3. Save back to LocalStorage
       localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
       alert(`${movie.title} added to favorites!`);
     } else {
       alert("This movie is already in your favorites.");
     }
   };
-
-  const handleBooking = (movie) => {
-    navigate("/seats", { state: { movie: movie } });
-  };
-
 
   return (
     <Container className="mt-4">
@@ -43,7 +43,8 @@ export default function Movies() {
                     onClick={() => handleBooking(movie)}
                   >
                     Book Now
-                  </Button>                  <Button
+                  </Button>
+                  <Button
                     variant="outline-danger"
                     className="w-100"
                     onClick={() => addToFavorites(movie)}

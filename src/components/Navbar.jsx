@@ -7,88 +7,168 @@ import {
   Form,
   FormControl,
   Modal,
-  Dropdown // Added Dropdown for the profile menu
+  Dropdown
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaHeart, FaSearch, FaUserPlus, FaSignOutAlt } from "react-icons/fa"; // Added icons
 import emailjs from "@emailjs/browser";
+
+import { FaHeart, FaSearch, FaUserPlus, FaSignOutAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
 import "../styles/Navbar.css";
-import { googleLogout, useGoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from "jwt-decode";
 
 export default function Navbar() {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
   const [authMode, setAuthMode] = useState(null);
+  const [otpSent, setOtpSent] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [profileImg, setProfileImg] = useState(null);
+
 
   const [user, setUser] = useState(
     JSON.parse(localStorage.getItem("user")) || null
   );
 
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-  });
+ const [formData, setFormData] = useState({
+  name: "",
+  email: "",
+  phone: "",
+  password: "",
+  confirmPassword: "",
+});
 
   const [errors, setErrors] = useState({});
-  const [successMsg, setSuccessMsg] = useState("");
-
-  // --- GOOGLE LOGIN HOOK ---
-  const loginWithGoogle = useGoogleLogin({
-    onSuccess: async (tokenResponse) => {
-      // Fetch user info using the access token
-      const res = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-        headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
-      });
-      const data = await res.json();
-      
-      const loggedUser = {
-        name: data.name,
-        email: data.email,
-        picture: data.picture, 
-      };
-
-      localStorage.setItem("user", JSON.stringify(loggedUser));
-      setUser(loggedUser);
-      setShowAuth(false);
-      setAuthMode(null);
-    },
-    onError: () => console.log("Login Failed"),
-  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-    setErrors({ ...errors, [name]: "" });
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+
+    // RESET OTP IF PHONE NUMBER CHANGES
+    if (name === "phone") {
+      setOtp("");
+      setOtpSent(false);
+    }
   };
 
-  const validate = (mode) => {
+  const validate = () => {
     let newErrors = {};
-    if (mode !== "phone") {
-      if (!formData.email) newErrors.email = "Email is required";
-      else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = "Invalid email format";
+
+    // EMAIL LOGIN
+    if (authMode === "email") {
+      if (!formData.email) {
+        newErrors.email = "Email is required";
+      } else if (!/^[a-zA-Z0-9._%+-]+@gmail\.com$/.test(formData.email)) {
+        newErrors.email = "Only @gmail.com emails are allowed";
+      }
+
+      if (!formData.password) {
+        newErrors.password = "Password is required";
+      }
+
+      if (!formData.confirmPassword) {
+        newErrors.confirmPassword = "Confirm your password";
+      } else if (formData.password !== formData.confirmPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
     }
-    if (mode === "phone") {
-      if (!formData.phone) newErrors.phone = "Phone number required";
-      else if (!/^[6-9]\d{9}$/.test(formData.phone)) newErrors.phone = "Invalid phone number";
+
+    // PHONE LOGIN
+    if (authMode === "phone") {
+      if (!formData.name) newErrors.name = "Name is required";
+
+      if (!formData.phone) {
+        newErrors.phone = "Phone number is required";
+      } else if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+        newErrors.phone = "Enter a valid 10-digit Indian number";
+      }
+
+      if (!otpSent) newErrors.otp = "Please verify OTP";
+
+      if (!formData.password) newErrors.password = "Password is required";
+
+      if (!formData.confirmPassword) {
+        newErrors.confirmPassword = "Confirm your password";
+      } else if (formData.password !== formData.confirmPassword) {
+        newErrors.confirmPassword = "Passwords do not match";
+      }
     }
-    if (mode !== "signup" && !formData.name) newErrors.name = "Name is required";
-    if (mode === "signup") {
-      if (!formData.password) newErrors.password = "Password required";
-      else if (formData.password.length < 6) newErrors.password = "Minimum 6 characters";
-    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleLogin = async () => {
-    if (!validate(authMode)) return;
-    const loggedUser = { name: formData.name || formData.email || formData.phone };
-    localStorage.setItem("user", JSON.stringify(loggedUser));
-    setUser(loggedUser);
+
+  const handleLogin = () => {
+    if (!validate()) return;
+
+    // EMAIL LOGIN → EMAILJS
+    if (authMode === "email") {
+      emailjs
+        .send(
+          "service_l14kjlo",
+          "template_8e5wfwm",
+          {
+            email: formData.email,
+            message: "User logged in successfully",
+          },
+          "6dstiV_-yu9MD2ep3"
+        )
+        .then(
+          () => console.log("Email sent"),
+          (error) => console.error("EmailJS error", error)
+        );
+
+      const loggedUser = {
+        name: formData.email.split("@")[0],
+        email: formData.email,
+      };
+
+      localStorage.setItem("user", JSON.stringify(loggedUser));
+      setUser(loggedUser);
+    }
+
+    // PHONE LOGIN
+    if (authMode === "phone") {
+      const loggedUser = {
+        name: formData.name,
+        phone: formData.phone,
+        image: profileImg,
+      };
+
+      localStorage.setItem("user", JSON.stringify(loggedUser));
+      setUser(loggedUser);
+    }
+
     setShowAuth(false);
+    setAuthMode(null);
+    setOtpSent(false);
+  };
+
+
+  const sendOtp = () => {
+    if (!/^[6-9]\d{9}$/.test(formData.phone)) {
+      setErrors({ phone: "Enter a valid 10-digit phone number" });
+      return;
+    }
+
+    setOtpSent(true);
+    alert("OTP sent: 123456"); 
+  };
+
+
+
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+    setShowLogoutConfirm(false);
   };
 
   return (
@@ -96,10 +176,7 @@ export default function Navbar() {
       <RBNavbar expand="lg" className="floating-navbar" fixed="top">
         <Container fluid>
           <RBNavbar.Brand as={Link} to="/" className="brand">
-            <span className="brand-q">Q</span>
-            <span className="brand-rest">uick</span>
-            <span className="brand-q">S</span>
-            <span className="brand-rest">how</span>
+            <span className="brand-q">Q</span>uick<span className="brand-q">S</span>how
           </RBNavbar.Brand>
 
           <RBNavbar.Toggle aria-controls="main-navbar" />
@@ -107,9 +184,8 @@ export default function Navbar() {
             <Nav className="mx-auto nav-links">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/movies">Movies</Nav.Link>
-              <Nav.Link as={Link} to="/theaters">Theaters</Nav.Link>
+              <Nav.Link as={Link} to="/theaters">Theaters</Nav.Link> {/* Restored link */}
               <Nav.Link as={Link} to="/latestreleases">Releases</Nav.Link>
-              <Nav.Link as={Link} to="/favourites">Favourites</Nav.Link>
             </Nav>
 
             <div className="nav-right">
@@ -121,21 +197,16 @@ export default function Navbar() {
               <Link to="/favourites" className="fav-icon"><FaHeart /></Link>
 
               {user ? (
-                /* PROFILE IMAGE DROPDOWN */
                 <Dropdown align="end">
                   <Dropdown.Toggle variant="transparent" className="p-0 border-0 no-caret">
-                    <img 
-                      src={user.picture || "https://via.placeholder.com/40"} 
-                      alt="profile" 
-                      className="nav-profile-img" 
+                    <img
+                      src={"https://via.placeholder.com/40"}
+                      alt="profile"
+                      className="nav-profile-img"
                     />
                   </Dropdown.Toggle>
-
                   <Dropdown.Menu className="profile-dropdown-menu">
                     <Dropdown.Header className="text-white">{user.name}</Dropdown.Header>
-                    <Dropdown.Item onClick={() => { setAuthMode(null); setShowAuth(true); }}>
-                      <FaUserPlus className="me-2" /> Add Account
-                    </Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item className="text-danger" onClick={() => setShowLogoutConfirm(true)}>
                       <FaSignOutAlt className="me-2" /> Logout
@@ -153,61 +224,233 @@ export default function Navbar() {
       </RBNavbar>
 
       {/* AUTH MODAL */}
-      <Modal show={showAuth} onHide={() => setShowAuth(false)} centered>
-        <Modal.Header closeButton={false} className="auth-header">
-          <Modal.Title>Sign In</Modal.Title>
-          <button type="button" className="auth-back-btn" onClick={() => authMode ? setAuthMode(null) : setShowAuth(false)}>×</button>
+      <Modal show={showAuth} onHide={() => { setShowAuth(false); setAuthMode(null); }} centered>
+        <Modal.Header className="auth-header border-0 d-flex justify-content-between align-items-center">
+          <Modal.Title className="text-white">
+            {authMode === "email"
+              ? "Sign In with Email"
+              : authMode === "phone"
+                ? "Sign In with Phone"
+                : "Sign In"}
+          </Modal.Title>
+
+          {/* EXIT BUTTON */}
+          <Button
+            variant="link"
+            className="text-white fs-4 text-decoration-none"
+            onClick={() => {
+              setShowAuth(false);
+              setAuthMode(null);
+              setOtpSent(false);
+              setErrors({});
+            }}
+          >
+            &times;
+          </Button>
         </Modal.Header>
 
-        <Modal.Body className="auth-modal">
-          {!authMode && (
-            <>
-              <Button className="w-100 mb-3 google-btn" onClick={() => loginWithGoogle()}>
-                Continue with Google
+
+        <Modal.Body className="auth-modal bg-dark text-white p-4">
+          {!authMode ? (
+            <div className="d-grid gap-3">
+              <Button className="email-btn py-2" onClick={() => setAuthMode("email")}>
+                <FaEnvelope className="me-2" /> Continue with Email
               </Button>
-              <Button className="w-100 mb-3 phone-btn" onClick={() => setAuthMode("phone")}>
-                Continue with Phone Number
+              <Button className="phone-btn py-2" onClick={() => setAuthMode("phone")}>
+                <FaPhoneAlt className="me-2" /> Continue with Phone
               </Button>
               <div className="text-center mt-3">
-                <span>New here?</span>{" "}
-                <Button variant="link" className="create-link p-0" onClick={() => setAuthMode("signup")}>Create Account</Button>
+                <small>New here? </small>
+                <Button variant="link" className="create-link p-0 fw-bold" onClick={() => setAuthMode("signup")}>
+                  Create Account
+                </Button>
               </div>
-            </>
-          )}
-
-          {authMode && (
+            </div>
+          ) : (
             <Form>
-              {authMode !== "signup" && (
-                <Form.Control name="name" placeholder="Name" onChange={handleChange} isInvalid={!!errors.name} className="mb-2" />
+
+              {/* ========== EMAIL LOGIN ========== */}
+              {authMode === "email" && (
+                <>
+                  <Form.Group className="mb-3">
+                    <Form.Label className="text-white">Email Address</Form.Label>
+                    <Form.Control
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      isInvalid={!!errors.email}
+                      className="bg-transparent text-white border-secondary"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.email}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label className="text-white">Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      isInvalid={!!errors.password}
+                      className="bg-transparent text-white border-secondary"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.password}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label className="text-white">Confirm Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      isInvalid={!!errors.confirmPassword}
+                      className="bg-transparent text-white border-secondary"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.confirmPassword}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+                </>
               )}
-              {authMode !== "phone" && (
-                <Form.Control type="email" name="email" placeholder="Email" onChange={handleChange} isInvalid={!!errors.email} className="mb-2" />
-              )}
+
+              {/* ========== PHONE LOGIN ========== */}
               {authMode === "phone" && (
-                <Form.Control name="phone" placeholder="Phone Number" onChange={handleChange} isInvalid={!!errors.phone} className="mb-2" />
+                <>
+                  <Form.Group className="mb-3">
+                    <Form.Label className="text-white">Full Name</Form.Label>
+                    <Form.Control
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      isInvalid={!!errors.name}
+                      className="bg-transparent text-white border-secondary"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.name}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label className="text-white">Phone Number</Form.Label>
+                    <Form.Control
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      isInvalid={!!errors.phone}
+                      className="bg-transparent text-white border-secondary"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.phone}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  {!otpSent ? (
+                    <Button
+                      variant="outline-info"
+                      className="w-100 mb-3"
+                      onClick={sendOtp}
+                    >
+                      Send OTP
+                    </Button>
+                  ) : (
+                    <Form.Group className="mb-3">
+                      <Form.Label className="text-white">OTP</Form.Label>
+                      <Form.Control
+                        value={otp}
+                        onChange={(e) => setOtp(e.target.value)}
+                        isInvalid={!!errors.otp}
+                        className="bg-transparent text-white border-secondary"
+                      />
+                      <Form.Control.Feedback type="invalid">
+                        {errors.otp}
+                      </Form.Control.Feedback>
+                    </Form.Group>
+                  )}
+
+                  <Form.Group className="mb-3">
+                    <Form.Label className="text-white">Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                      isInvalid={!!errors.password}
+                      className="bg-transparent text-white border-secondary"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.password}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label className="text-white">Confirm Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
+                      isInvalid={!!errors.confirmPassword}
+                      className="bg-transparent text-white border-secondary"
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      {errors.confirmPassword}
+                    </Form.Control.Feedback>
+                  </Form.Group>
+
+                  <Form.Group className="mb-3">
+                    <Form.Label className="text-white">Profile Image</Form.Label>
+                    <Form.Control
+                      type="file"
+                      accept="image/*"
+                      onChange={(e) =>
+                        setProfileImg(URL.createObjectURL(e.target.files[0]))
+                      }
+                      className="bg-transparent text-white border-secondary"
+                    />
+                  </Form.Group>
+                </>
               )}
-              {authMode === "signup" && (
-                <Form.Control type="password" name="password" placeholder="Password" onChange={handleChange} isInvalid={!!errors.password} className="mb-2" />
-              )}
-              <Button className="w-100 mt-3" onClick={handleLogin}>Continue</Button>
+
+              {/* SUBMIT */}
+              <Button className="w-100 mt-2 btn-info" onClick={handleLogin}>
+                Continue
+              </Button>
+
+              {/* BACK */}
+              <div className="text-center mt-3">
+                <Button
+                  variant="link"
+                  className="text-muted text-decoration-none p-0"
+                  onClick={() => {
+                    setAuthMode(null);
+                    setOtpSent(false);
+                    setErrors({});
+                  }}
+                >
+                  ← Back to options
+                </Button>
+              </div>
+
             </Form>
+
+
           )}
         </Modal.Body>
       </Modal>
 
-      {/* LOGOUT MODAL */}
+      {/* LOGOUT CONFIRMATION */}
       <Modal show={showLogoutConfirm} onHide={() => setShowLogoutConfirm(false)} centered>
-        <Modal.Header closeButton><Modal.Title>Confirm Logout</Modal.Title></Modal.Header>
-        <Modal.Body className="auth-modal text-center">
-          <p>Are you sure you want to logout?</p>
+        <Modal.Body className="bg-dark text-white text-center p-4 rounded">
+          <h5>Are you sure you want to logout?</h5>
           <div className="d-flex justify-content-center gap-3 mt-4">
             <Button variant="secondary" onClick={() => setShowLogoutConfirm(false)}>Cancel</Button>
-            <Button className="phone-btn" onClick={() => {
-              googleLogout();
-              localStorage.removeItem("user");
-              setUser(null);
-              setShowLogoutConfirm(false);
-            }}>Yes, Logout</Button>
+            <Button variant="danger" onClick={handleLogout}>Yes, Logout</Button>
           </div>
         </Modal.Body>
       </Modal>

@@ -1,6 +1,4 @@
-/* =========================
-   MAIN NAVBAR
-========================= */
+/* MAIN NAVBAR */
 .floating-navbar {
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
@@ -11,24 +9,20 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* =========================
-   BRAND
-========================= */
+/* brand */
 .brand-q {
   color: #df1e2ed0;
   font-weight: 700;
   font-style: italic;
 }
 
-.brand-rest {
-  color: #ffffffbc;
+.brand {
+  color: #ffffffbc !important;
   font-weight: 500;
   font-family: "Times New Roman", Times, serif;
 }
 
-/* =========================
-   CENTER LINKS
-========================= */
+/* CENTER LINKS */
 .nav-links {
   gap: 25px;
 }
@@ -189,11 +183,6 @@
 }
 
 
-/* ===============================
-   AUTH MODAL (PROFESSIONAL)
-   Scoped – SAFE
-================================ */
-
 .auth-modal {
   padding: 10px 8px;
 }
@@ -223,99 +212,99 @@
   filter: invert(1);
 }
 
-/* ===============================
-   BUTTONS
-================================ */
 
-/* Google */
-.google-btn {
-  background: #ffffff !important;
-  color: #000 !important;
+
+.email-btn {
+  background-color: #ffffff !important;
+  color: #000000 !important;
   border-radius: 12px;
   font-weight: 500;
   padding: 12px;
   font-size: 0.95rem;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
 }
 
-.google-btn:hover {
-  background: #f1f1f1 !important;
+.email-btn:hover {
+  background-color: #f1f1f1 !important;
+  transform: translateY(-2px);
 }
 
-/* Phone */
+/* Phone Button - Adjusted for Consistency */
 .phone-btn {
-    color: #000 !important;
-
-  background: #e50914 !important;
+  background: #e50914 !important; /* Netflix Red */
+  color: #ffffff !important;
   border-radius: 12px;
   padding: 12px;
   font-weight: 500;
   font-size: 0.95rem;
   border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
 }
 
 .phone-btn:hover {
-  background: #f1f1f1 !important;
+  background: #c40812 !important;
+  transform: translateY(-2px);
+  color: #ffffff !important;
 }
 
-/* CREATE ACCOUNT LINK */
-
-.create-link {
-  color: #e50914 !important;
-  font-weight: 500;
-  font-size: 0.9rem;
-  text-decoration: none;
+/* Back Link Styling */
+.text-muted.text-decoration-none {
+  font-size: 0.85rem;
+  color: #ffffff9a !important;
+  transition: 0.3s;
 }
 
-.create-link:hover {
-  text-decoration: underline;
+.text-muted.text-decoration-none:hover {
+  color: #ffffff !important;
 }
 
-/* AUTH FORM INPUTS */
+/* ===============================
+   AUTH FORM INPUTS (CLEANUP)
+================================ */
 
 .auth-modal .form-control {
-  /* Set background to light so black text is readable */
-  background-color: #ffffff !important;
-  /* This ensures your typing color is BLACK */
-  color: #000000 !important;
-  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  color: #ffffff !important; /* Text color inside inputs */
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 10px;
-  padding: 10px 12px;
+  padding: 12px 15px;
+  transition: 0.3s;
 }
 
 .auth-modal .form-control:focus {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  border-color: #e50914;
-  box-shadow: 0 0 0 0.2rem rgba(229, 9, 20, 0.25);
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  color: #ffffff !important;
+  border-color: #00e5ff; /* Cyan glow on focus */
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
   outline: none;
 }
 
-/* Make placeholder text a readable gray */
+/* Placeholder visibility */
 .auth-modal .form-control::placeholder {
-  color: #757575 !important;
+  color: rgba(255, 255, 255, 0.5) !important;
 }
 
-.auth-modal .btn-primary {
-  background: linear-gradient(135deg, #e50914, #ff2e2e);
-  border: none;
+/* Submit Button Gradient */
+.btn-info {
+  background: linear-gradient(135deg, #00e5ff, #0097a7) !important;
+  border: none !important;
+  color: #000 !important;
+  font-weight: 600;
   border-radius: 12px;
   padding: 12px;
-  font-weight: 600;
-  letter-spacing: 0.4px;
 }
 
-.auth-modal .btn-primary:hover {
+.btn-info:hover {
   opacity: 0.9;
+  transform: scale(1.01);
 }
-
-.auth-modal input {
-  background-color: #f8f9fa;
-  color: #000;
-  border: 1px solid #ccc;
-}
-
-
 
 .invalid-feedback {
   color: #ff6b6b;

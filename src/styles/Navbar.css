@@ -116,17 +116,27 @@
    BUTTONS
 ========================= */
 .signin-btn {
-  background: transparent !important;
-  border-radius: 20px;
-  padding: 6px 16px;
-  font-weight: 500;
-  border: 1px solid #ffffff70;
-  color: #fff;
+  border-color: #00e5ff;
+  color: #00e5ff;
 }
 
 .signin-btn:hover {
-  background: rgba(255, 255, 255, 0.15) !important;
+  background-color: #00e5ff;
+  color: #000;
 }
+
+.phone-btn {
+  background-color: #ff4d6d;
+  border: none;
+  color: white;
+}
+
+.google-btn {
+  background-color: #ffffff;
+  color: #000;
+  border: 1px solid #ccc;
+}
+
 
 
 
@@ -148,6 +158,34 @@
   .search-input {
     width: 100%;
   }
+}
+.nav-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #00e5ff;
+  cursor: pointer;
+}
+
+.no-caret::after {
+  display: none !important;
+}
+
+.profile-dropdown-menu {
+  background-color: #0f0f0f !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  border-radius: 12px !important;
+  margin-top: 10px !important;
+}
+
+.profile-dropdown-menu .dropdown-item {
+  color: white !important;
+  padding: 10px 20px;
+}
+
+.profile-dropdown-menu .dropdown-item:hover {
+  background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
 
@@ -206,6 +244,8 @@
 
 /* Phone */
 .phone-btn {
+    color: #000 !important;
+
   background: #e50914 !important;
   border-radius: 12px;
   padding: 12px;
@@ -215,10 +255,10 @@
 }
 
 .phone-btn:hover {
-  background: #f6121d !important;
+  background: #f1f1f1 !important;
 }
 
-   /* CREATE ACCOUNT LINK */
+/* CREATE ACCOUNT LINK */
 
 .create-link {
   color: #e50914 !important;
@@ -231,27 +271,29 @@
   text-decoration: underline;
 }
 
-   /* AUTH FORM INPUTS */
+/* AUTH FORM INPUTS */
 
 .auth-modal .form-control {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
+  /* Set background to light so black text is readable */
+  background-color: #ffffff !important;
+  /* This ensures your typing color is BLACK */
+  color: #000000 !important;
+  border: 1px solid #ccc;
   border-radius: 10px;
   padding: 10px 12px;
 }
 
-.auth-modal .form-control::placeholder {
-  color: #aaaaaa;
+.auth-modal .form-control:focus {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  border-color: #e50914;
+  box-shadow: 0 0 0 0.2rem rgba(229, 9, 20, 0.25);
+  outline: none;
 }
 
-.auth-modal .form-control:focus {
-  background: rgba(255, 255, 255, 0.12);
-  box-shadow: none;
-  border-color: #e50914;
-  color: #fff;
-}.auth-modal .form-label{
-  color: black !important;
+/* Make placeholder text a readable gray */
+.auth-modal .form-control::placeholder {
+  color: #757575 !important;
 }
 
 .auth-modal .btn-primary {
@@ -265,6 +307,12 @@
 
 .auth-modal .btn-primary:hover {
   opacity: 0.9;
+}
+
+.auth-modal input {
+  background-color: #f8f9fa;
+  color: #000;
+  border: 1px solid #ccc;
 }
 
 
@@ -281,4 +329,24 @@
   border: 1px solid rgba(40, 167, 69, 0.4);
   border-radius: 10px;
   font-size: 0.9rem;
+}
+
+.auth-back-btn {
+  position: absolute;
+  right: 10px;
+  width: 34px;
+  margin-top: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  color: black;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.auth-back-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
 }

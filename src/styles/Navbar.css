@@ -93,9 +93,7 @@
   font-size: 14px;
 }
 
-/* =========================
-   FAVOURITES ICON
-========================= */
+
 .fav-icon {
   color: #ffffffc9;
   font-size: 20px;
@@ -106,9 +104,7 @@
   color: #ff4757;
 }
 
-/* =========================
-   BUTTONS
-========================= */
+
 .signin-btn {
   border-color: #00e5ff;
   color: #00e5ff;
@@ -132,11 +128,6 @@
 }
 
 
-
-
-/* =========================
-   MOBILE VIEW
-========================= */
 @media (max-width: 991px) {
   .nav-links {
     margin-top: 15px;
@@ -182,160 +173,142 @@
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-
-.auth-modal {
-  padding: 10px 8px;
+.header2{
+  color: #e12a2a;
+  font: 1em sans-serif;
+  font-family: 'Times New Roman', Times, serif;
+  padding: 5px;
+}
+/* --- Auth Modal Container --- */
+.modal-content-custom {
+  background: rgba(20, 20, 20, 0.95) !important; /* Sleek dark background */
+  backdrop-filter: blur(15px); /* Glassmorphism effect */
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+  overflow: hidden;
 }
 
-/* Modal container */
-.modal-content {
-  background: #0f0f0f;
-  color: #fff;
-  border-radius: 16px;
+/* --- Custom Header --- */
+.custom-modal-header {
+  background: transparent;
   border: none;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  padding: 1.5rem 1.5rem 0.5rem 1.5rem !important;
 }
 
-/* Header */
-.modal-header {
-  border-bottom: none;
-  padding-bottom: 0;
-}
-
-.modal-title {
-  font-size: 1.4rem;
-  font-weight: 600;
-}
-
-/* Close button */
-.modal-header .btn-close {
-  filter: invert(1);
-}
-
-
-
-.email-btn {
-  background-color: #ffffff !important;
-  color: #000000 !important;
-  border-radius: 12px;
-  font-weight: 500;
-  padding: 12px;
-  font-size: 0.95rem;
+/* --- Red Exit Button --- */
+.btn-exit-red {
+  background: rgba(220, 38, 38, 0.1);
+  color: #ef4444;
   border: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.3s;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
 }
 
-.email-btn:hover {
-  background-color: #f1f1f1 !important;
+.btn-exit-red:hover {
+  background: #ef4444;
+  color: white;
+  transform: rotate(90deg);
+}
+
+/* --- Back Button --- */
+.btn-modal-back {
+  margin-top: 10px;
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  transition: color 0.2s;
+}
+
+.btn-modal-back:hover {
+  color: #60a5fa; /* Soft blue on hover */
+}
+
+/* --- Auth Option Buttons (Email/Phone) --- */
+.email-btn, .phone-btn {
+  background: #2563eb !important; /* Professional Blue */
+  border: none !important;
+  border-radius: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease !important;
+}
+
+.email-btn:hover, .phone-btn:hover {
+  background: #1d4ed8 !important;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
-/* Phone Button - Adjusted for Consistency */
 .phone-btn {
-  background: #e50914 !important; /* Netflix Red */
-  color: #ffffff !important;
-  border-radius: 12px;
-  padding: 12px;
-  font-weight: 500;
-  font-size: 0.95rem;
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s;
+  background: #10b981 !important; /* Modern Green */
 }
 
 .phone-btn:hover {
-  background: #c40812 !important;
-  transform: translateY(-2px);
-  color: #ffffff !important;
+  background: #059669 !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
 
-/* Back Link Styling */
-.text-muted.text-decoration-none {
-  font-size: 0.85rem;
-  color: #ffffff9a !important;
-  transition: 0.3s;
-}
-
-.text-muted.text-decoration-none:hover {
-  color: #ffffff !important;
-}
-
-/* ===============================
-   AUTH FORM INPUTS (CLEANUP)
-================================ */
-
+/* --- Form Inputs --- */
 .auth-modal .form-control {
-  background-color: rgba(255, 255, 255, 0.05) !important;
-  color: #ffffff !important; /* Text color inside inputs */
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  padding: 12px 15px;
-  transition: 0.3s;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 10px !important;
+  color: white !important;
+  padding: 12px 15px !important;
+  transition: all 0.3s ease;
 }
 
 .auth-modal .form-control:focus {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  color: #ffffff !important;
-  border-color: #00e5ff; /* Cyan glow on focus */
-  box-shadow: 0 0 8px rgba(0, 229, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: #3b82f6 !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
   outline: none;
 }
 
-/* Placeholder visibility */
-.auth-modal .form-control::placeholder {
-  color: rgba(255, 255, 255, 0.5) !important;
-}
-
-/* Submit Button Gradient */
-.btn-info {
-  background: linear-gradient(135deg, #00e5ff, #0097a7) !important;
-  border: none !important;
-  color: #000 !important;
-  font-weight: 600;
-  border-radius: 12px;
-  padding: 12px;
-}
-
-.btn-info:hover {
-  opacity: 0.9;
-  transform: scale(1.01);
-}
-
-.invalid-feedback {
-  color: #ff6b6b;
-  font-size: 0.8rem;
-}
-
-
-.auth-modal .alert-success {
-  background: rgba(40, 167, 69, 0.15);
-  color: #5dff8a;
-  border: 1px solid rgba(40, 167, 69, 0.4);
-  border-radius: 10px;
+.auth-modal .form-label {
   font-size: 0.9rem;
+  font-weight: 500;
+  color: #d1d5db !important;
+  margin-bottom: 8px;
 }
 
-.auth-back-btn {
-  position: absolute;
-  right: 10px;
-  width: 34px;
-  margin-top: 10px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
-  border: none;
-  color: black;
-  font-size: 22px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* --- Continue Button --- */
+.btn-info.w-100 {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 1.5rem !important;
 }
 
-.auth-back-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
+/* --- Links --- */
+.create-link {
+  color: #3b82f6 !important;
+  text-decoration: none !important;
+  transition: opacity 0.2s;
+}
+
+.create-link:hover {
+  opacity: 0.8;
+  text-decoration: underline !important;
+}
+
+/* --- Validation Errors --- */
+.invalid-feedback {
+  font-size: 0.8rem;
+  color: #f87171 !important;
 }

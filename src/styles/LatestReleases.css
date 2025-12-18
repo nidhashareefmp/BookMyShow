@@ -87,3 +87,33 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
 }
+/* OFFERS */
+.offers-section .offer-card {
+  border: none;
+  border-radius: 16px;
+  color: white;
+  padding: 20px;
+  transition: transform 0.3s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-6px);
+}
+
+.offer-red {
+  background: linear-gradient(135deg, #dc2626, #7f1d1d);
+}
+
+.offer-blue {
+  background: linear-gradient(135deg, #2563eb, #1e3a8a);
+}
+
+.offer-green {
+  background: linear-gradient(135deg, #16a34a, #14532d);
+}
+
+/* WHY QUICKSHOW */
+.why-quickshow p {
+  color: #6b7280;
+  font-size: 0.95rem;
+}

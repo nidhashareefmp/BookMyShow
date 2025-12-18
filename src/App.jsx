@@ -7,10 +7,14 @@ import Payment from "./pages/payment";
 import AuthModal from "./pages/AuthModal";
 import Favorites from "./pages/Favorites";
 import LatestReleases from "./pages/LatestReleases";
+import Footer from "./pages/Footer";
+import Bookings from "./pages/Bookings";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <>
+    <ScrollToTop/>
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -20,9 +24,11 @@ function App() {
         <Route path="/auth" element={<AuthModal />} />
         <Route path="/favourites" element={<Favorites />} />
         <Route path="/latestreleases" element={<LatestReleases />} />
+        <Route path="/bookings" element={<Bookings/>} />
 
 
       </Routes>
+      <Footer/>
     </>
   );
 }

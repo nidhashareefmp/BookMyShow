@@ -38,6 +38,7 @@ export default function SeatSelection() {
 
   const [selectedDate, setSelectedDate] = useState(getNextSevenDays()[0]);
   const [selectedTime, setSelectedTime] = useState(THEATRES[theatre]?.times[0] || "");
+  
 
   const [bookedSeatsMap, setBookedSeatsMap] = useState({
     [`PVR_${DATES[0]}_10:30 AM`]: ["A2", "B4"],
@@ -69,20 +70,20 @@ export default function SeatSelection() {
     );
   };
 
-  const handleProceedToPay = () => {
-    const bookingDetails = {
-      movieId: movie.id,
-      movieTitle: movie.title,
-      theatre,
-      seats: selectedSeats,
-      seatPrice: currentTheatre.price,
-      totalAmount: selectedSeats.length * currentTheatre.price,
-      showDate: selectedDate,
-      showTime: selectedTime,
-    };
-
-    navigate("/payment", { state: bookingDetails });
+ const handleProceedToPay = () => {
+    // We use the variables actually defined in your component
+    navigate("/payment", {
+      state: {
+        movieId: movie.id,           
+        movieTitle: movie.title,     
+        date: selectedDate,
+        time: selectedTime,
+        selectedSeats: selectedSeats, 
+        totalAmount: selectedSeats.length * currentTheatre.price, 
+      }
+    });
   };
+
 
   return (
     <Container className="seat-page py-4">

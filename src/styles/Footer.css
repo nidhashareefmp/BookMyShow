@@ -1,0 +1,142 @@
+.quickshow-footer {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 16px 0;
+  margin-top: auto;
+}
+
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-left h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #ffffff;
+}
+.quickshow-footer {
+  background: linear-gradient(180deg, #020617, #0f172a);
+  color: #e5e7eb;
+  padding-top: 60px;
+  padding-bottom: 30px;
+  margin-top: auto;
+}
+
+/* Top section */
+.footer-top {
+  margin-bottom: 40px;
+}
+
+.footer-section h4,
+.footer-section h5 {
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.footer-section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #cbd5f5;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+  cursor: pointer;
+  color: #cbd5f5;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li:hover {
+  color: #38bdf8;
+}
+
+/* Email */
+.footer-email {
+  display: inline-block;
+  margin-bottom: 14px;
+  color: #38bdf8;
+  text-decoration: none;
+}
+
+/* Social icons */
+.footer-socials {
+  display: flex;
+  gap: 16px;
+  font-size: 1.6rem;
+}
+
+.footer-socials a {
+  color: #e5e7eb;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.footer-socials a:hover {
+  color: #38bdf8;
+  transform: scale(1.2);
+}
+
+/* Bottom bar */
+.footer-bottom {
+  border-top: 1px solid #1e293b;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .footer-section {
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .footer-socials {
+    justify-content: center;
+  }
+}
+
+.footer-left p {
+  margin: 4px 0;
+  font-size: 0.85rem;
+  color: #cbd5f5;
+  max-width: 400px;
+}
+
+.footer-left span {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.footer-right {
+  display: flex;
+  gap: 16px;
+  font-size: 1.4rem;
+}
+
+.footer-right a {
+  color: #e5e7eb;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.footer-right a:hover {
+  color: #38bdf8;
+  transform: scale(1.15);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -84,4 +84,61 @@ body{
   gap: 8px;
   margin-top: 10px;
 }
+/* COUPONS */
+.coupon-box {
+  border: 1px dashed #dc2626;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.coupon-box h6 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.coupon-box p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+/* ===== MODAL STYLES ===== */
+.modal-content {
+  background-color: #ffffff !important; /* Forces background to white */
+  border-radius: 16px;
+  border: none;
+  overflow: hidden; /* Ensures content doesn't bleed out of rounded corners */
+}
+
+/* Ensuring text is visible on the white background */
+.modal-content .banner-title, 
+.modal-content .banner-description {
+  color: #1a1a1a; /* Dark gray/black for readability */
+}
+
+.modal-content .coupon-box p {
+  color: #4b5563; /* Subtle gray for descriptions */
+}
+/* ===== MODAL EXIT BUTTON ===== */
+
+/* Option 1: Solid Red Button */
+.btn-close-red {
+  background-color: #dc2626; /* Deep red */
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  cursor: pointer;
+}
+
+.modal-header .btn-close {
+  filter: none; 
+  color: #010101 !important;
+  padding: 10px;
+}
 

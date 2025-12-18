@@ -1,6 +1,6 @@
 .payment-container {
   max-width: 500px;
-  margin: 40px auto;
+  margin: 80px auto;
 }
 
 .payment-card {
@@ -8,6 +8,7 @@
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   background: #fff;
+  margin-top: 90px;
 }
 
 .payment-title {

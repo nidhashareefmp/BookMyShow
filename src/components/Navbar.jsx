@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import {
   Navbar as RBNavbar,
   Nav,
@@ -9,19 +9,25 @@ import {
   Modal,
   Dropdown
 } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import emailjs from "@emailjs/browser";
-import { FaHeart, FaSearch, FaSignOutAlt, FaEnvelope, FaPhoneAlt } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+
+
+import { FaHeart, FaSearch, FaSignOutAlt, FaEnvelope, FaPhoneAlt, FaEdit } from "react-icons/fa";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const [showAuth, setShowAuth] = useState(false);
-  const [authMode, setAuthMode] = useState(null); 
+  const [authMode, setAuthMode] = useState(null);
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
   const [profileImg, setProfileImg] = useState(null);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")) || null);
+  const navigate = useNavigate();
+  const [search, setSearch] = useState("");
+  const { user, login, logout } = useContext(AuthContext);
+
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -30,17 +36,17 @@ export default function Navbar() {
     password: "",
     confirmPassword: "",
   });
-useEffect(() => {
-  const openAuthModal = () => {
-    setShowAuth(true);
-  };
+  useEffect(() => {
+    const openAuthModal = () => {
+      setShowAuth(true);
+    };
 
-  window.addEventListener("open-auth-modal", openAuthModal);
+    window.addEventListener("open-auth-modal", openAuthModal);
 
-  return () => {
-    window.removeEventListener("open-auth-modal", openAuthModal);
-  };
-}, []);
+    return () => {
+      window.removeEventListener("open-auth-modal", openAuthModal);
+    };
+  }, []);
 
   const [errors, setErrors] = useState({});
 
@@ -61,7 +67,7 @@ useEffect(() => {
       return;
     }
     setOtpSent(true);
-    alert("OTP sent: 123456"); 
+    alert("OTP sent: 123456");
   };
 
   const validate = () => {
@@ -95,24 +101,54 @@ useEffect(() => {
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
+  const handleSearch = async (e) => {
+    e.preventDefault();
 
-const handleLogin = () => {
-  if (!validate()) return;
+    if (!search.trim()) return;
 
-  const loggedUser = {
-    name: formData.name || formData.email.split("@")[0],
-    email: formData.email,
-    phone: formData.phone,
+    try {
+      const response = await fetch("http://localhost:3000/movies");
+      const movies = await response.json();
+
+      const searchText = search.toLowerCase().trim();
+
+      const foundMovie = movies.find(movie =>
+        movie.title.toLowerCase().includes(searchText)
+      );
+
+      if (!foundMovie) {
+        alert(`No movie found for "${search}"`);
+        return;
+      }
+
+      navigate("/seats", {
+        state: { movie: foundMovie }
+      });
+
+      setSearch("");
+    } catch (error) {
+      console.error("Error searching movies:", error);
+    }
   };
 
-  localStorage.setItem("user", JSON.stringify(loggedUser));
-  setUser(loggedUser);
-  setShowAuth(false);
-  setAuthMode(null);
 
-  // 🔔 IMPORTANT: notify other pages
-  window.dispatchEvent(new Event("user-logged-in"));
-};
+
+  const handleLogin = () => {
+    if (!validate()) return;
+
+    const loggedUser = {
+      name: formData.name || formData.email.split("@")[0],
+      email: formData.email,
+      phone: formData.phone,
+    };
+
+    login(loggedUser);      // ✅ Context handles localStorage
+    setShowAuth(false);
+    setAuthMode(null);
+  };
+
+
+
 
 
   return (
@@ -128,21 +164,39 @@ const handleLogin = () => {
               <Nav.Link as={Link} to="/">Home</Nav.Link>
               <Nav.Link as={Link} to="/movies">Movies</Nav.Link>
               <Nav.Link as={Link} to="/latestreleases">Releases</Nav.Link>
+              <Nav.Link as={Link} to="/bookings">Bookings</Nav.Link>
+
             </Nav>
 
             <div className="nav-right">
-              <Form className="search-box">
+              <Form className="search-box" onSubmit={handleSearch}>
                 <FaSearch className="search-icon" />
-                <FormControl placeholder="Search movies..." className="search-input" />
+                <FormControl
+                  placeholder="Search movies..."
+                  className="search-input"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
               </Form>
+
               <Link to="/favourites" className="fav-icon"><FaHeart /></Link>
               {user ? (
                 <Dropdown align="end">
-                  <Dropdown.Toggle variant="transparent" className="p-0 border-0 no-caret">
-                    <img src={"https://via.placeholder.com/40"} alt="profile" className="nav-profile-img" />
+                  <Dropdown.Toggle
+                    variant="outline-primary"
+                    className="login-status-btn"
+                  >
+                    My Account
                   </Dropdown.Toggle>
+
                   <Dropdown.Menu className="profile-dropdown-menu">
                     <Dropdown.Header>{user.name}</Dropdown.Header>
+                    <Dropdown.Item as={Link} to="/bookings">
+                      <FaEnvelope className="me-2" /> My Bookings
+                    </Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/admin">
+                      <FaEdit className="me-2" /> Admin Dashboard
+                    </Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item className="text-danger" onClick={() => setShowLogoutConfirm(true)}>
                       <FaSignOutAlt className="me-2" /> Logout
@@ -263,7 +317,7 @@ const handleLogin = () => {
           <h5>Are you sure you want to logout?</h5>
           <div className="d-flex justify-content-center gap-3 mt-4">
             <Button variant="secondary" onClick={() => setShowLogoutConfirm(false)}>Cancel</Button>
-            <Button variant="danger" onClick={() => { localStorage.removeItem("user"); setUser(null); setShowLogoutConfirm(false); }}>Yes, Logout</Button>
+            <Button variant="danger" onClick={() => { logout(); setShowLogoutConfirm(false); }}>Yes, Logout</Button>
           </div>
         </Modal.Body>
       </Modal>

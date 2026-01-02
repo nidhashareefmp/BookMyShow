@@ -1,5 +1,21 @@
 /* MAIN NAVBAR */
+/* .floating-navbar {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  padding: 14px 40px;
+  margin: 15px auto;
+  width: 95%;
+  border-radius: 50px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+} */
+
 .floating-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(12px);
   padding: 14px 40px;
@@ -8,6 +24,7 @@
   border-radius: 50px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
+
 
 /* brand */
 .brand-q {
@@ -32,6 +49,9 @@
   font-weight: 500;
   position: relative;
   transition: 0.3s;
+  z-index: 10001;
+  /* Ensure on top */
+  pointer-events: auto;
 }
 
 /* LINK HOVER ANIMATION */
@@ -51,9 +71,6 @@
   width: 100%;
 }
 
-/* =========================
-   RIGHT SIDE (SEARCH + ICONS)
-========================= */
 .nav-right {
   display: flex;
   align-items: center;
@@ -144,6 +161,7 @@
     width: 100%;
   }
 }
+
 .nav-profile-img {
   width: 40px;
   height: 40px;
@@ -162,6 +180,7 @@
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   border-radius: 12px !important;
   margin-top: 10px !important;
+  z-index: 10000 !important;
 }
 
 .profile-dropdown-menu .dropdown-item {
@@ -173,30 +192,29 @@
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-.header2{
+.header2 {
   color: #e12a2a;
   font: 1em sans-serif;
   font-family: 'Times New Roman', Times, serif;
   padding: 5px;
 }
+
 /* --- Auth Modal Container --- */
 .modal-content-custom {
-  background: rgba(20, 20, 20, 0.95) !important; /* Sleek dark background */
-  backdrop-filter: blur(15px); /* Glassmorphism effect */
+  background: rgba(20, 20, 20, 0.95) !important;
+  backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 20px !important;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
   overflow: hidden;
 }
 
-/* --- Custom Header --- */
 .custom-modal-header {
   background: transparent;
   border: none;
   padding: 1.5rem 1.5rem 0.5rem 1.5rem !important;
 }
 
-/* --- Red Exit Button --- */
 .btn-exit-red {
   background: rgba(220, 38, 38, 0.1);
   color: #ef4444;
@@ -231,12 +249,12 @@
 }
 
 .btn-modal-back:hover {
-  color: #60a5fa; /* Soft blue on hover */
+  color: #60a5fa;
 }
 
-/* --- Auth Option Buttons (Email/Phone) --- */
-.email-btn, .phone-btn {
-  background: #2563eb !important; /* Professional Blue */
+.email-btn,
+.phone-btn {
+  background: #2563eb !important;
   border: none !important;
   border-radius: 10px !important;
   font-weight: 600 !important;
@@ -244,14 +262,16 @@
   transition: all 0.3s ease !important;
 }
 
-.email-btn:hover, .phone-btn:hover {
+.email-btn:hover,
+.phone-btn:hover {
   background: #1d4ed8 !important;
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
 
 .phone-btn {
-  background: #10b981 !important; /* Modern Green */
+  background: #10b981 !important;
+  /* Modern Green */
 }
 
 .phone-btn:hover {
@@ -311,4 +331,20 @@
 .invalid-feedback {
   font-size: 0.8rem;
   color: #f87171 !important;
+}
+
+.login-status-btn {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 1.5px solid #198754;
+  color: #198754;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.login-status-btn:hover {
+  background: #198754;
+  color: #fff;
 }

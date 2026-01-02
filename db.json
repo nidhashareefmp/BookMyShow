@@ -1,0 +1,94 @@
+{
+  "movies": [
+    {
+      "title": "Avengers",
+      "image": "/images/Avengers.jpg",
+      "description": "Action thriller starring Vijay",
+      "theatres": [
+        "PVR",
+        "INOX",
+        "IMAX",
+        "CINEPOLIS",
+        "LUXE"
+      ],
+      "isLatest": true,
+      "id": "1"
+    },
+    {
+      "id": "3",
+      "title": "Jawan",
+      "image": "/images/Jawan.jpg",
+      "artistImage": "/images/shah-rukh.jpg",
+      "description": "Mass action entertainer",
+      "theatres": [
+        "INOX",
+        "SPI"
+      ]
+    },
+    {
+      "id": "4",
+      "title": "Leo (IMAX)",
+      "image": "/images/Leo.jpg",
+      "artistImage": "/images/Vijay.jpg",
+      "description": "IMAX experience of Leo",
+      "theatres": [
+        "PVR",
+        "IMAX"
+      ]
+    },
+    {
+      "id": "5",
+      "title": "Devara",
+      "image": "/images/devara.jpg",
+      "theatres": [
+        "PVR",
+        "INOX",
+        "IMAX",
+        "CINEPOLIS",
+        "LUXE"
+      ],
+      "description": "Mass action drama",
+      "isLatest": true
+    },
+    {
+      "id": "6",
+      "title": "Pushpa-2",
+      "image": "/images/pushpa2.jpg",
+      "theatres": [
+        "PVR",
+        "INOX",
+        "IMAX",
+        "CINEPOLIS",
+        "LUXE"
+      ],
+      "description": "Sequel of Pushpa"
+    },
+    {
+      "id": "7",
+      "title": "Game Changer",
+      "image": "/images/gamechanger.jpg",
+      "theatres": [
+        "PVR",
+        "INOX",
+        "IMAX",
+        "CINEPOLIS",
+        "LUXE"
+      ],
+      "description": "Political action drama",
+      "isLatest": true
+    },
+    {
+      "id": "8",
+      "title": "Indian 2",
+      "image": "/images/indian2.jpg",
+      "theatres": [
+        "PVR",
+        "INOX",
+        "IMAX",
+        "CINEPOLIS",
+        "LUXE"
+      ],
+      "description": "Vigilante drama"
+    }
+  ]
+}

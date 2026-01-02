@@ -1,0 +1,71 @@
+.my-bookings-heading {
+  padding-top: 110px;
+  /* 🔥 pushes it down using padding */
+  margin-bottom: 40px;
+
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+
+  color: #dc3545;
+  /* Bootstrap danger red */
+  text-align: center;
+
+  position: relative;
+}
+
+/* underline effect */
+.my-bookings-heading::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background-color: #dc3545;
+  margin: 12px auto 0;
+  border-radius: 2px;
+}
+
+/* Center container */
+.signin-container {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card styling */
+.signin-card {
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
+
+  background: #ffffff;
+  border-radius: 18px;
+  border: none;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Title */
+.signin-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Button */
+.signin-btn {
+  background: linear-gradient(135deg, #dc3545, #ff5a5a);
+  border: none;
+  padding: 12px 28px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 30px;
+
+  transition: all 0.3s ease;
+}
+
+.signin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(220, 53, 69, 0.35);
+}

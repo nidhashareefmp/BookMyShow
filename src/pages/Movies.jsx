@@ -1,12 +1,20 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import moviesData from "../data/moviesdata";
+import { useState, useEffect } from "react";
+import "../styles/Movies.css";
 import "../styles/Homepage.css";
 
 export default function Movies() {
   const navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
 
-  // FIX: handleBooking must be its own separate function here
+  useEffect(() => {
+    fetch("http://localhost:3000/movies")
+      .then((res) => res.json())
+      .then((data) => setMovies(data))
+      .catch((err) => console.error("Error fetching movies:", err));
+  }, []);
+
   const handleBooking = (movie) => {
     navigate("/seats", { state: { movie: movie } });
   };
@@ -26,9 +34,9 @@ export default function Movies() {
 
   return (
     <Container className="mt-4">
-      <h2 className="mb-4">All Movies</h2>
+      <h2 className="all-movies">All Movies</h2>
       <Row>
-        {moviesData.map((movie) => (
+        {movies.map((movie) => (
           <Col md={3} key={movie.id} className="mb-4">
             <Card className="h-100">
               <Card.Img variant="top" src={movie.image} />

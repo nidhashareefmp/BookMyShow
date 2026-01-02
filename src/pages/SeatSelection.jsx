@@ -25,7 +25,6 @@ const getNextSevenDays = () => {
 };
 const DATES = getNextSevenDays();
 
-
 export default function SeatSelection() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -35,34 +34,24 @@ export default function SeatSelection() {
 
   const [theatre, setTheatre] = useState(availableTheatres[0] || "PVR");
   const [selectedSeats, setSelectedSeats] = useState([]);
-
   const [selectedDate, setSelectedDate] = useState(getNextSevenDays()[0]);
   const [selectedTime, setSelectedTime] = useState(THEATRES[theatre]?.times[0] || "");
-  
 
-  const [bookedSeatsMap, setBookedSeatsMap] = useState({
+  const [bookedSeatsMap] = useState({
     [`PVR_${DATES[0]}_10:30 AM`]: ["A2", "B4"],
     [`PVR_${DATES[0]}_7:30 PM`]: ["C1", "C2"],
     [`PVR_${DATES[1]}_10:30 AM`]: ["A1", "A3"],
     [`INOX_${DATES[0]}_11:00 AM`]: ["A1"]
   });
 
-
   if (!movie) return <Container>Movie not found.</Container>;
 
   const currentTheatre = THEATRES[theatre];
-
-  // ✅ ADDED: current show key
   const showKey = `${theatre}_${selectedDate}_${selectedTime}`;
-
-  // ✅ ADDED: booked seats for selected show
   const bookedSeats = bookedSeatsMap[showKey] || [];
 
-
   const toggleSeat = (seatId) => {
-    // ✅ FIXED: use dynamic booked seats
     if (bookedSeats.includes(seatId)) return;
-
     setSelectedSeats(prev =>
       prev.includes(seatId)
         ? prev.filter(s => s !== seatId)
@@ -70,20 +59,18 @@ export default function SeatSelection() {
     );
   };
 
- const handleProceedToPay = () => {
-    // We use the variables actually defined in your component
+  const handleProceedToPay = () => {
     navigate("/payment", {
       state: {
-        movieId: movie.id,           
-        movieTitle: movie.title,     
+        movie,                      
+        theatre,                    
+        showTime: selectedTime,     
         date: selectedDate,
-        time: selectedTime,
-        selectedSeats: selectedSeats, 
-        totalAmount: selectedSeats.length * currentTheatre.price, 
+        selectedSeats,
+        totalPrice: selectedSeats.length * currentTheatre.price 
       }
     });
   };
-
 
   return (
     <Container className="seat-page py-4">
@@ -96,7 +83,7 @@ export default function SeatSelection() {
 
         <Col md={8} className="ps-md-5">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2>Select Seats</h2>
+            <h2 className="h2head">Select Seats</h2>
             <Form.Select
               style={{ width: "200px" }}
               value={theatre}
@@ -140,7 +127,7 @@ export default function SeatSelection() {
           <div className="booking-section mb-4">
             <h5 className="section-title">Select Time</h5>
             <div className="time-wrapper">
-              {currentTheatre?.times?.map((time) => (
+              {currentTheatre.times.map((time) => (
                 <div
                   key={time}
                   className={`time-slot ${selectedTime === time ? "active" : ""}`}
@@ -161,7 +148,7 @@ export default function SeatSelection() {
                 <span className="row-label me-3">{row}</span>
                 {Array.from({ length: currentTheatre.seatsPerRow }).map((_, i) => {
                   const seatId = `${row}${i + 1}`;
-                  const isBooked = bookedSeats.includes(seatId); // ✅ FIXED
+                  const isBooked = bookedSeats.includes(seatId);
                   const isSelected = selectedSeats.includes(seatId);
 
                   return (

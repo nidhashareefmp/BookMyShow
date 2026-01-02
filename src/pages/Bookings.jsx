@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Container, Card, Row, Col, Badge, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import "../styles/Bookings.css";
 
 export default function Bookings() {
   const [myBookings, setMyBookings] = useState([]);
@@ -10,28 +11,37 @@ export default function Bookings() {
   useEffect(() => {
     if (!user) return;
 
-    const allBookings =
-      JSON.parse(localStorage.getItem("bookings")) || [];
-
+    const allBookings = JSON.parse(localStorage.getItem("bookings")) || [];
     const userBookings = allBookings.filter(
-      b => b.userEmail === user.email
+      b => b.userEmail === user.email || b.userEmail === user.phone
     );
 
     setMyBookings(userBookings);
   }, [user]);
 
+  // ✅ REDIRECT instead of trapping UI
   if (!user) {
     return (
-      <Container className="mt-5 text-center">
-        <Card className="p-5 shadow">
-          <h3>Please sign in to see your bookings</h3>
+      <Container className="signin-container">
+        <Card className="signin-card p-5">
+          <h3 className="signin-title">
+            Please sign in to see your bookings
+          </h3>
+
           <Button
-            className="mt-3"
-            onClick={() =>
-              window.dispatchEvent(new Event("open-auth-modal"))
-            }
+            className="signin-btn mt-4"
+            onClick={() => navigate("/auth")}
           >
             Sign In
+          </Button>
+
+          {/* ✅ allow navigation */}
+          <Button
+            variant="link"
+            className="mt-3"
+            onClick={() => navigate("/")}
+          >
+            Back to Home
           </Button>
         </Card>
       </Container>
@@ -40,7 +50,7 @@ export default function Bookings() {
 
   return (
     <Container className="py-5">
-      <h2 className="mb-4">My Bookings 🎟️</h2>
+      <h2 className="my-bookings-heading">My Bookings 🎟️</h2>
 
       {myBookings.length === 0 ? (
         <Alert variant="info">
@@ -76,9 +86,7 @@ export default function Bookings() {
                       </p>
                     </div>
 
-                    <Badge bg="success" className="align-self-start">
-                      Confirmed
-                    </Badge>
+                    <Badge bg="success">Confirmed</Badge>
                   </div>
                 </Card.Body>
               </Card>
@@ -89,10 +97,10 @@ export default function Bookings() {
 
       <Button
         variant="outline-primary"
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/movies")}
         className="mt-4"
       >
-        Back to Home
+        Book Another Movie
       </Button>
     </Container>
   );

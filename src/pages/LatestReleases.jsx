@@ -1,14 +1,19 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import moviesData from "../data/moviesdata";
+import { useState, useEffect } from "react";
 import "../styles/Homepage.css";
 import "../styles/LatestReleases.css";
 
 export default function LatestReleases() {
     const navigate = useNavigate();
+    const [latestMovies, setLatestMovies] = useState([]);
 
-    // 1. Filter the movies here
-    const latestMovies = moviesData.filter(movie => movie.isLatest === true);
+    useEffect(() => {
+        fetch("http://localhost:3000/movies")
+            .then(res => res.json())
+            .then(data => setLatestMovies(data.filter(movie => movie.isLatest === true)))
+            .catch(err => console.error("Error fetching movies:", err));
+    }, []);
 
     const addToFavorites = (movie) => {
         const existingFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
@@ -29,7 +34,7 @@ export default function LatestReleases() {
 
     return (
         <Container className="mt-4">
-            <h2 className="mb-4 text-danger">🔥 Latest Releases</h2>
+            <h2 className="danger">🔥 Latest Releases</h2>
             <Row>
                 {latestMovies.length > 0 ? (
                     latestMovies.map((movie) => (

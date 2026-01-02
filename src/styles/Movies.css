@@ -1,0 +1,24 @@
+.all-movies {
+  margin-top: 90px;          /* 🔥 BIG top margin */
+  margin-bottom: 40px;
+
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+
+  text-align: center;
+  color: #bdbfc1;             /* Bootstrap dark */
+
+  position: relative;
+}
+
+/* underline accent */
+.all-movies::after {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 4px;
+  background-color: #dc3545;  /* red accent */
+  margin: 14px auto 0;
+  border-radius: 3px;
+}

@@ -1,18 +1,19 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Container, Card, Button, Alert } from "react-bootstrap";
 import emailjs from "@emailjs/browser";
+import { AuthContext } from "../context/AuthContext";
 import "../styles/Payment.css";
 
 export default function Payment() {
   const { state } = useLocation();
   const navigate = useNavigate();
   console.log("Data received from previous page:", state);
-console.log("Booking saved:", newBooking);
-console.log("All bookings:", JSON.parse(localStorage.getItem("bookings")));
+  console.log("All bookings:", JSON.parse(localStorage.getItem("bookings")));
 
-  // Initialize state from localStorage
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  // ✅ USE CONTEXT (Fixes synchronization issue)
+  const { user } = useContext(AuthContext);
+
   const [method, setMethod] = useState("upi");
   const [upiId, setUpiId] = useState("");
   const [card, setCard] = useState({ number: "", name: "", expiry: "", cvv: "" });
@@ -27,18 +28,6 @@ console.log("All bookings:", JSON.parse(localStorage.getItem("bookings")));
   }, [state, navigate]);
 
   if (!state) return null;
-  useEffect(() => {
-    const handleUserLogin = () => {
-      const loggedUser = JSON.parse(localStorage.getItem("user"));
-      setUser(loggedUser);
-    };
-
-    window.addEventListener("user-logged-in", handleUserLogin);
-
-    return () => {
-      window.removeEventListener("user-logged-in", handleUserLogin);
-    };
-  }, []);
 
 
   // ✅ 2. AUTHENTICATION CHECK
@@ -77,7 +66,7 @@ console.log("All bookings:", JSON.parse(localStorage.getItem("bookings")));
 
     try {
       // ✅ SAVE SEAT LOCKING (keep this)
-      const bookingKey = `bookedSeats_${state.movieId}_${state.date}_${state.time}`;
+      const bookingKey = `bookedSeats_${state.movieId || state.movie?.id}_${state.date}_${state.time || state.showTime}`;
       const existingSeats =
         JSON.parse(localStorage.getItem(bookingKey)) || [];
 
@@ -87,17 +76,17 @@ console.log("All bookings:", JSON.parse(localStorage.getItem("bookings")));
 
       localStorage.setItem(bookingKey, JSON.stringify(updatedSeats));
 
-      // ✅ SAVE BOOKING HISTORY (THIS WAS MISSING)
       const newBooking = {
         id: Date.now(),
-        movieId: state.movieId,
-        movieTitle: state.movieTitle,
+        movieId: state.movieId || state.movie?.id,
+        movieTitle: state.movieTitle || state.movie?.title,
         date: state.date,
-        time: state.time,
+        time: state.time || state.showTime,
         seats: state.selectedSeats,
-        amount: state.totalAmount,
-        userEmail: user.email
+        amount: state.totalAmount || state.totalPrice,
+        userEmail: user.email || user.phone // ✅ Fallback to phone for ID
       };
+
 
       const existingBookings =
         JSON.parse(localStorage.getItem("bookings")) || [];
@@ -107,24 +96,26 @@ console.log("All bookings:", JSON.parse(localStorage.getItem("bookings")));
         JSON.stringify([...existingBookings, newBooking])
       );
 
-      // ✅ OPTIONAL EMAIL (don’t block booking if it fails)
-      try {
-        await emailjs.send(
-          "service_c49p7nl",
-          "template_pa6oe0c",
-          {
-            firstname: user.name,
-            email: user.email,
-            movie_title: state.movieTitle,
-            amount: state.totalAmount,
-            seats: state.selectedSeats.join(", "),
-            date: state.date,
-            time: state.time
-          },
-          "6dstiV_-yu9MD2ep3"
-        );
-      } catch (mailErr) {
-        console.warn("Email failed but booking saved", mailErr);
+      // ✅ SEND EMAIL ONLY IF EMAIL EXISTS
+      if (user.email && user.email.includes("@")) {
+        try {
+          await emailjs.send(
+            "service_c49p7nl",
+            "template_pa6oe0c",
+            {
+              firstname: user.name,
+              email: user.email,
+              movie_title: state.movieTitle,
+              amount: state.totalAmount,
+              seats: state.selectedSeats.join(", "),
+              date: state.date,
+              time: state.time
+            },
+            "6dstiV_-yu9MD2ep3"
+          );
+        } catch (mailErr) {
+          console.warn("Email failed but booking saved", mailErr);
+        }
       }
 
       alert("Payment Successful 🎉");

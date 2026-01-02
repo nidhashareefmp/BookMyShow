@@ -16,7 +16,9 @@
   font-weight: 600;
   margin-bottom: 10px;
 }
-
+.h2head{
+  color: #f2f8f9;
+}
 .screen {
   width: 60%;
   margin: 5px auto;

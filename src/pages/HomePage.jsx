@@ -1,15 +1,39 @@
-
-
-import { useState } from "react";
-import { Modal } from "react-bootstrap";
-import { Container, Button, Card, Row, Col } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  Button,
+  Card,
+  Modal
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import moviesData from "../data/moviesdata";
 import "../styles/HomePage.css";
 import { StrangerthingsImg } from "../assets/images";
 
 export default function HomePage() {
-  const latestMovies = moviesData.slice(0, 4);
+  const [latestMovies, setLatestMovies] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/movies")
+      .then(res => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch movies");
+        }
+        return res.json();
+      })
+      .then(data => {
+        setLatestMovies(data.slice(0, 4));
+        setError(null);
+      })
+      .catch(err => {
+        console.error("Error fetching movies:", err);
+        setError("Failed to load movies. Please make sure the backend server is running (npm run server).");
+      });
+  }, []);
+
+  const [error, setError] = useState(null);
+
   const [showCoupons, setShowCoupons] = useState(false);
   const [copiedCode, setCopiedCode] = useState("");
   const [showTheatres, setShowTheatres] = useState(false);
@@ -70,6 +94,15 @@ export default function HomePage() {
         </Row>
       </Container>
 
+
+      {/* ===== ERROR ALERT ===== */}
+      {error && (
+        <Container className="my-4">
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        </Container>
+      )}
 
       {/* ===== LATEST RELEASE ===== */}
       <Container className="latest-release-section">

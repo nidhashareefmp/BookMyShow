@@ -48,7 +48,7 @@ const moviesData = [
   },
   {
     id: 6,
-    title: "Pushpa 2",
+    title: "Pushpa-2",
     image: "/images/pushpa2.jpg",
     theatres: ["PVR", "INOX", "IMAX", "CINEPOLIS", "LUXE"],
     description: "Sequel of Pushpa"

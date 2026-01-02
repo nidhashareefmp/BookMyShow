@@ -10,11 +10,13 @@ import LatestReleases from "./pages/LatestReleases";
 import Footer from "./pages/Footer";
 import Bookings from "./pages/Bookings";
 import ScrollToTop from "./components/ScrollToTop";
+import SearchResults from "./pages/SearchResults";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
     <>
-    <ScrollToTop/>
+      <ScrollToTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -24,11 +26,13 @@ function App() {
         <Route path="/auth" element={<AuthModal />} />
         <Route path="/favourites" element={<Favorites />} />
         <Route path="/latestreleases" element={<LatestReleases />} />
-        <Route path="/bookings" element={<Bookings/>} />
+        <Route path="/bookings" element={<Bookings />} />
+        <Route path="search" element={<SearchResults />} />
+        <Route path="/admin" element={<AdminDashboard />} />
 
 
       </Routes>
-      <Footer/>
+      <Footer />
     </>
   );
 }
